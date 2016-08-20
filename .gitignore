@@ -6,8 +6,8 @@ pigments
 toolbar-fusion
 node_modules
 */*.pkg.tar.*
-*/pkg/
-*/src/
+pkg/
+src/
 */v*.tar.gz
 */*.log
 repository/
