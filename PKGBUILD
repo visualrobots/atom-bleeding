@@ -12,9 +12,8 @@ pkgname=atom-bleeding
 _pkgname=atom
 _apmver=1.12.6
 _atomver=1.9.9
-_pkgver=1.9.9.aa1.6.2.ac0.11.2.am1.6.1.ap2.31.1.apm1.12.6.as0.1.0.asn1.11.0.av0.61.1.b0.41.1.bm0.82.1.bt0.26.1.d0.8.9.e1.3.3.es0.22.0.ff1.4.0.fi1.7.18.fr0.201.0.fu0.11.1.g3.0.4.gd1.1.0.gl0.31.0.gp5.16.2.gs0.48.2.gtm1.5.3.iv0.58.3.l.la0.9.1.lc3.4.4.lcs1.0.0.ld1.1.7.les0.5.0.lg0.92.2.lgo0.42.1.lh0.45.1.li1.18.3.lj1.3.0.lja0.23.0.ljs0.119.0.ljso0.18.2.ll1.0.2.lld0.5.1.lle.lm0.22.2.lp1.0.0.lph0.37.2.lpl0.35.0.lpy0.45.0.lr0.69.0.lrt0.4.6.ls0.56.0.lsq0.23.0.lt0.28.0.lu0.37.8.lv0.3.2.lx0.34.9.ly0.26.0.m4.24.7.mp0.158.1.o1.2.0.p0.31.2.s3.9.0.sc0.68.1.sev0.241.2.sg0.47.1.sv0.113.1.t0.101.0.tc0.33.2.tf2.3.1.tv0.209.0.w0.33.0
 pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}
-pkgrel=2
+pkgrel=3
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
 arch=('i686' 'x86_64')
 url="${_atom_url}/atom"
@@ -142,6 +141,7 @@ source=("about-arch::git+${_fus_url}/about.git"
         "linter-clang::git+https://github.com/AtomLinter/linter-clang.git"
         "linter-coffeescript::git+https://github.com/hokaccha/linter-coffeescript.git"
         "linter-jsonlint::git+https://github.com/AtomLinter/linter-jsonlint.git"
+        "linter-pylint::git+https://github.com/AtomLinter/linter-pylint.git"
         "linter-lua::git+https://github.com/AtomLinter/linter-lua.git")
 # patches, json, js and desktop files
 source+=('about-view.js'
@@ -165,6 +165,7 @@ source+=('about-view.js'
 'settings-view-fix-height.patch'
 'symbols-view-use-system-ctags.patch')
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -420,6 +421,7 @@ prepare() {
   _linter_clang_ver="$(describe linter-clang)"
   _linter_coffeescript_ver="$(describe linter-coffeescript)"
   _linter_jsonlint_ver="$(describe linter-jsonlint)"
+  _linter_pylint_ver="$(describe linter-pylint)"
   _linter_lua_ver="$(describe linter-lua)"
   _minimap_ver="$(describe minimap)"
   _pigments_ver="$(describe pigments)"
@@ -468,12 +470,11 @@ prepare() {
          -e "s/\"language-gfm\": \".*\",/\"language-gfm2\": \"${_language_gfm2_ver}\",\n    \"language-ini-desktop\": \"${_language_ini_desktop_ver}\",\n    \"language-liquid\": \"${_language_liquid_ver}\",\n    \"language-patch2\": \"${_language_patch2_ver}\",/g" \
          -e "/\"dependencies\": {/a \
                      \"language-patch2\": \"${_language_patch2_url}\"," \
-         -e "s/\"language-shellscript\": \".*\",/\"language-lisp\": \"${_language_lisp_ver}\",\n    \"language-lua\": \"${_language_lua_ver}\",\n    \"language-matlab-octave\": \"${_language_matlab_octave_ver}\",\n    \"language-pascal\": \"${_language_pascal_ver}\",\n    \"language-rust\": \"${_language_rust_ver}\",\n    \"language-scala\": \"${_language_scala_ver}\",\n    \"language-unix-shell\": \"${_language_unix_shell_ver}\",\n    \"language-vala-modern\": \"${_language_vala_modern_ver}\",\n    \"language-archlinux\": \"${_language_archlinux_ver}\",\n    \"language-docker\": \"${_language_docker_ver}\",\n    \"terminal-fusion\": \"${_tf_ver}\",\n    \"tool-bar\": \"${_tool_bar_ver}\",\n    \"toolbar-fusion\": \"${_toolbar_fusion_ver}\",\n    \"linter-clang\": \"${_linter_clang_ver}\",\n    \"linter-coffeescript\": \"${_linter_coffeescript_ver}\",\n    \"linter-jsonlint\": \"${_linter_jsonlint_ver}\",\n    \"linter-lua\": \"${_linter_lua_ver}\",/g" \
+         -e "s/\"language-shellscript\": \".*\",/\"language-lisp\": \"${_language_lisp_ver}\",\n    \"language-lua\": \"${_language_lua_ver}\",\n    \"language-matlab-octave\": \"${_language_matlab_octave_ver}\",\n    \"language-pascal\": \"${_language_pascal_ver}\",\n    \"language-rust\": \"${_language_rust_ver}\",\n    \"language-scala\": \"${_language_scala_ver}\",\n    \"language-unix-shell\": \"${_language_unix_shell_ver}\",\n    \"language-vala-modern\": \"${_language_vala_modern_ver}\",\n    \"language-archlinux\": \"${_language_archlinux_ver}\",\n    \"language-docker\": \"${_language_docker_ver}\",\n    \"terminal-fusion\": \"${_tf_ver}\",\n    \"tool-bar\": \"${_tool_bar_ver}\",\n    \"toolbar-fusion\": \"${_toolbar_fusion_ver}\",\n    \"linter-clang\": \"${_linter_clang_ver}\",\n    \"linter-coffeescript\": \"${_linter_coffeescript_ver}\",\n    \"linter-jsonlint\": \"${_linter_jsonlint_ver}\",\n    \"linter-pylint\": \"${_linter_pylint_ver}\",\n    \"linter-lua\": \"${_linter_lua_ver}\",/g" \
          -e "s/\"about\": \".*\"/\"about-arch\": \"${_about_arch_ver}\"/g" \
          -e "s/\"link\": \".*\",/\"hyperclick\": \"${_hyperclick_ver}\",\n    \"hyperlink-hyperclick\": \"${_hyperlink_hyperclick_ver}\",\n    \"minimap\": \"${_minimap_ver}\",\n    \"pigments\": \"${_pigments_ver}\",/g" \
          -e "/\"packageDependencies\": {/a \
-              \"ask-stack\": \"${_ask_stack_ver}\",\n    \"autocomplete-clang\": \"${_autocomplete_clang_ver}\",\n    \"autocomplete-java\": \"${_autocomplete_java_ver}\",\n    \"autocomplete-modules\": \"${_autocomplete_modules_ver}\",\n    \"autocomplete-python\": \"${_autocomplete_python_ver}\",\n    \"autocomplete-sass\": \"${_autocomplete_sass_ver}\",\n    \"dark-bint-syntax\": \"${_dark_bint_syntax_ver}\"," \
-         -e "s/\"dark-bint-syntax\": \".*\",/\"dark-bint-syntax\": \"${_dark_bint_syntax_ver}\",\n    \"file-icons\": \"${_file_icons_ver}\",\n    \"fusion-ui\": \"${_fusion_ui_ver}\",\n    \"gpp-compiler\": \"${_gpp_compiler_ver}\",\n    \"git-plus\": \"${_git_plus_ver}\",\n    \"git-time-machine\": \"${_git_time_machine_ver}\",/g" package.json
+              \"ask-stack\": \"${_ask_stack_ver}\",\n    \"autocomplete-clang\": \"${_autocomplete_clang_ver}\",\n    \"autocomplete-java\": \"${_autocomplete_java_ver}\",\n    \"autocomplete-modules\": \"${_autocomplete_modules_ver}\",\n    \"autocomplete-python\": \"${_autocomplete_python_ver}\",\n    \"autocomplete-sass\": \"${_autocomplete_sass_ver}\",\n    \"dark-bint-syntax\": \"${_dark_bint_syntax_ver}\",\n    \"file-icons\": \"${_file_icons_ver}\",\n    \"fusion-ui\": \"${_fusion_ui_ver}\",\n    \"gpp-compiler\": \"${_gpp_compiler_ver}\",\n    \"git-plus\": \"${_git_plus_ver}\",\n    \"git-time-machine\": \"${_git_time_machine_ver}\"," package.json
 
   _L=("archive-view"
   "autocomplete-atom-api"
