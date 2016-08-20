@@ -21,12 +21,17 @@ license=('MIT' 'custom')
 conflicts=('apm-bleeding' 'apm' 'nodejs-atom-package-manager')
 provides=('apm-bleeding')
 depends=('electron'
+         'python-pylint'
+         'python2-pylint'
          'clang'
          'namcap'
          'npm'
+         'lua'
          'libgnome-keyring'
          'nodejs'
-         'python2')
+         'python2'
+         'coffee-script'
+         'java-environment')
 optdepends=('ctags: symbol indexing support')
 makedepends=('coffee-script' 'git')
 # git sources
