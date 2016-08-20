@@ -585,8 +585,7 @@ build() {
 
   # Make sure NodeGit builds from source and with the correct runtime
   export BUILD_ONLY=1
-  ELECTRON_VERSION=$(</usr/lib/electron/version)
-  export ELECTRON_VERSION=${ELECTRON_VERSION#v}
+  export ELECTRON_VERSION=${_ELECTRON_VERSION}
   export APMBIN="$srcdir/apm-build/usr/lib/node_modules/atom-package-manager/bin/apm"
 
   LDFLAGS="${LDFLAGS} -Wl,-z,noexecstack" $APMBIN clean
@@ -614,7 +613,7 @@ build() {
   cd ../..
 
   # Fix for Electron 1.3.0
-  _node_gyp="node-gyp rebuild --target=$(</usr/lib/electron/version) --dist-url=https://atom.io/download/atom-shell"
+  _node_gyp="node-gyp rebuild --target=${_ELECTRON_VERSION} --dist-url=https://atom.io/download/atom-shell"
   cd node_modules/marker-index
   patch -Np1 -i "${srcdir}"/fix-marker-index.patch
   ${_node_gyp}
