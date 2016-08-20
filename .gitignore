@@ -11,8 +11,8 @@ src/
 */v*.tar.gz
 */*.log
 repository/
-*/apm
-*/atom
+apm/
+atom/
 about-arch
 archive-view
 atom-keymap
@@ -83,3 +83,5 @@ description
 FETCH_HEAD
 HEAD
 packed-refs
+*.gz
+*.xz
