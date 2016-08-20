@@ -3,7 +3,7 @@
 'use strict';
 
 process.env.ATOM_RESOURCE_PATH = process.env.ATOM_RESOURCE_PATH ||
-        '/usr/lib/atom';
+        '/usr/lib/atom-bleeding';
 
 process.env.ATOM_ELECTRON_VERSION = process.env.ATOM_ELECTRON_VERSION ||
         require('fs')
