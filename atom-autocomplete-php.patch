@@ -1,0 +1,13 @@
+--- a/package.json	2016-08-20 14:27:20.441412195 +1000
++++ b/package.json	2016-08-20 14:27:57.331598328 +1000
+@@ -65,7 +65,9 @@
+     "sub-atom": "~1.0.0"
+   },
+   "description": "Atom autocompletion plugin for PHP language",
+-  "devDependencies": {},
++  "devDependencies": {
++  	"coffee-script": "1.8.0"
++  },
+   "engines": {
+     "atom": ">0.50.0"
+   },
