@@ -14,7 +14,7 @@ _apmver=1.12.6
 _atomver=1.9.9
 _pkgver=1.9.9.aa1.6.2.ac0.11.2.am1.6.1.ap2.31.1.apm1.12.6.as0.1.0.asn1.11.0.av0.61.1.b0.41.1.bm0.82.1.bt0.26.1.d0.8.9.e1.3.3.es0.22.0.ff1.4.0.fi1.7.18.fr0.201.0.fu0.11.1.g3.0.4.gd1.1.0.gl0.31.0.gp5.16.2.gs0.48.2.gtm1.5.3.iv0.58.3.l.la0.9.1.lc3.4.4.lcs1.0.0.ld1.1.7.les0.5.0.lg0.92.2.lgo0.42.1.lh0.45.1.li1.18.3.lj1.3.0.lja0.23.0.ljs0.119.0.ljso0.18.2.ll1.0.2.lld0.5.1.lle.lm0.22.2.lp1.0.0.lph0.37.2.lpl0.35.0.lpy0.45.0.lr0.69.0.lrt0.4.6.ls0.56.0.lsq0.23.0.lt0.28.0.lu0.37.8.lv0.3.2.lx0.34.9.ly0.26.0.m4.24.7.mp0.158.1.o1.2.0.p0.31.2.s3.9.0.sc0.68.1.sev0.241.2.sg0.47.1.sv0.113.1.t0.101.0.tc0.33.2.tf2.3.1.tv0.209.0.w0.33.0
 pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}
-pkgrel=1
+pkgrel=2
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
 arch=('i686' 'x86_64')
 url="${_atom_url}/atom"
@@ -162,6 +162,7 @@ source+=('about-view.js'
 'upgrade.patch'
 'use-system-node-gyp.patch'
 'autocomplete-plus.patch'
+'settings-view-fix-height.patch'
 'symbols-view-use-system-ctags.patch')
 sha256sums=('SKIP'
             'SKIP'
@@ -293,6 +294,7 @@ sha256sums=('SKIP'
             '4d73feaadc49d2daae4e3fffcd35d4d57608d03b622bc6fb0d9d16e71e43a6a2'
             'ce8d45831e3d5071b7b913e8d1a014ec3b1ac3586194039006dcf87c100cc189'
             '96222292b94b2fe69914c7d8e3764ea7020f272cef63dff6a6593bfddafdedb8'
+            '676e2262c9129361eb2a718ba9fbd531b50dd2b8b49c9e07c8ce49789fc2d5ab'
             'd6ce1a5e16a42aa50c89848f36eaf2e5ef07a93f36dc740eaeb6ac7a6b3e0432')
 
 _pkgver() {
@@ -591,6 +593,10 @@ build() {
   LDFLAGS="${LDFLAGS} -Wl,-z,noexecstack" $APMBIN install
 
   # Fix for Node 6
+  # Fix height of "Choose a Theme" and "Install Packages" panels
+  cd node_modules/settings-view
+  patch -Np1 -i "${srcdir}"/settings-view-fix-height.patch
+  cd ../..
   cd node_modules/autocomplete-clang/lib
   sed -i -e 's/.coffee//g' *.coffee
   cd ../../..
