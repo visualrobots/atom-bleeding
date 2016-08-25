@@ -166,7 +166,6 @@ source+=('about-view.js'
 'no-scripts.patch'
 'upgrade.patch'
 'use-system-node-gyp.patch'
-'autocomplete-plus.patch'
 'settings-view-fix-height.patch'
 'symbols-view-use-system-ctags.patch')
 sha256sums=('SKIP'
@@ -606,9 +605,6 @@ build() {
   cd node_modules/autocomplete-clang/lib
   sed -i -e 's/.coffee//g' *.coffee
   cd ../../..
-  cd node_modules/autocomplete-plus
-  patch -Np1 -i ${srcdir}/autocomplete-plus.patch
-  cd ../..
   # Use system ctags
   cd node_modules/symbols-view
   patch -Np1 -i "${srcdir}"/symbols-view-use-system-ctags.patch
