@@ -7,13 +7,14 @@ _mur_url="https://github.com/Murriouz"
 _language_patch2_url="${_fus_url}/language-patch2"
 _ELECTRON_VERSION=$(</usr/lib/electron/version)
 export _ELECTRON_VERSION=${_ELECTRON_VERSION#v}
+export _NODE_VERSION=$(node --version | sed 's/v//g')
 
 pkgname=atom-bleeding
 _pkgname=atom
 _apmver=1.12.6
 _atomver=1.9.9
-pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}
-pkgrel=7
+pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}.n${_NODE_VERSION}
+pkgrel=1
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
 arch=('i686' 'x86_64')
 url="${_atom_url}/atom"
