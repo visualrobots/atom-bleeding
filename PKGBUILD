@@ -166,6 +166,7 @@ source+=('about-view.js'
 'apm.js'
 'no-scripts.patch'
 'upgrade.patch'
+'fix-pane-resize-handle.patch'
 'use-system-node-gyp.patch'
 'symbols-view-use-system-ctags.patch')
 sha256sums=('SKIP'
@@ -297,6 +298,7 @@ sha256sums=('SKIP'
             '0e607fef2a1a92d58fa5b7beca2a059bdbcc7ecd4198013baa1ffd05fff5446e'
             '0763015eb5ddb8346a5cef3479d80023d32382531d8a651c230c8f2144ba3628'
             '4d73feaadc49d2daae4e3fffcd35d4d57608d03b622bc6fb0d9d16e71e43a6a2'
+            '1d5a4e6f2f928ebea64ee70c8a6ecf1935a1409ca7e50b02c70ae9f3315328b6'
             'ce8d45831e3d5071b7b913e8d1a014ec3b1ac3586194039006dcf87c100cc189'
             'd6ce1a5e16a42aa50c89848f36eaf2e5ef07a93f36dc740eaeb6ac7a6b3e0432')
 
@@ -560,6 +562,9 @@ prepare() {
   # Fix for Electron 1.2.0
   patch -Np1 -i "${srcdir}"/beforeunload.patch
   patch -Np1 -i "${srcdir}"/run-as-node.patch
+
+  # Fix for Electron 1.3.0
+  patch -Np1 -i "${srcdir}"/fix-pane-resize-handle.patch
 
   # Theme patch
   patch -Np1 -i "${srcdir}"/theme.patch
