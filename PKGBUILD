@@ -13,7 +13,6 @@ pkgname=atom-bleeding
 _pkgname=atom
 _apmver=1.12.6
 _atomver=1.9.9
-#pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}.n${_NODE_VERSION}
 pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}.n${_NODE_VERSION}
 pkgrel=2
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
