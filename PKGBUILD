@@ -14,7 +14,7 @@ _pkgname=atom
 _apmver=1.12.6
 _atomver=1.9.9
 pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}.n${_NODE_VERSION}
-pkgrel=2
+pkgrel=1
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
 arch=('i686' 'x86_64')
 url="${_atom_url}/atom"
@@ -171,6 +171,7 @@ source+=('about-view.js'
 'use-system-node-gyp.patch'
 'symbols-view-use-system-ctags.patch')
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -511,9 +512,9 @@ build() {
   export ELECTRON_VERSION=${_ELECTRON_VERSION}
   export APMBIN="$srcdir/apm-build/usr/lib/node_modules/atom-package-manager/bin/apm"
 
-  LDFLAGS="${LDFLAGS} -Wl,-z,noexecstack" $APMBIN clean
+  $APMBIN clean
   # -Wl,-z,noexecstack to make sure nodegit.node does not have executable stack
-  LDFLAGS="${LDFLAGS} -Wl,-z,noexecstack" $APMBIN install
+  $APMBIN install
 
   # Fix for Node 6
   cd node_modules/autocomplete-clang/lib
