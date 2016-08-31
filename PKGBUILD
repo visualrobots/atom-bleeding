@@ -167,7 +167,6 @@ source+=('about-view.js'
 'no-scripts.patch'
 'upgrade.patch'
 'use-system-node-gyp.patch'
-'settings-view-fix-height.patch'
 'symbols-view-use-system-ctags.patch')
 sha256sums=('SKIP'
             'SKIP'
@@ -299,7 +298,6 @@ sha256sums=('SKIP'
             '0763015eb5ddb8346a5cef3479d80023d32382531d8a651c230c8f2144ba3628'
             '4d73feaadc49d2daae4e3fffcd35d4d57608d03b622bc6fb0d9d16e71e43a6a2'
             'ce8d45831e3d5071b7b913e8d1a014ec3b1ac3586194039006dcf87c100cc189'
-            '676e2262c9129361eb2a718ba9fbd531b50dd2b8b49c9e07c8ce49789fc2d5ab'
             'd6ce1a5e16a42aa50c89848f36eaf2e5ef07a93f36dc740eaeb6ac7a6b3e0432')
 
 _pkgver() {
@@ -598,10 +596,6 @@ build() {
   LDFLAGS="${LDFLAGS} -Wl,-z,noexecstack" $APMBIN install
 
   # Fix for Node 6
-  # Fix height of "Choose a Theme" and "Install Packages" panels
-  cd node_modules/settings-view
-  patch -Np1 -i "${srcdir}"/settings-view-fix-height.patch
-  cd ../..
   cd node_modules/autocomplete-clang/lib
   sed -i -e 's/.coffee//g' *.coffee
   cd ../../..
