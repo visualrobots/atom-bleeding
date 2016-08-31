@@ -19,7 +19,7 @@ pkgdesc='A hackable text editor for the 21st Century built using web technologie
 arch=('i686' 'x86_64')
 url="${_atom_url}/atom"
 license=('MIT' 'custom')
-conflicts=('apm-bleeding' 'apm' 'nodejs-atom-package-manager')
+conflicts=('apm-bleeding')
 provides=('apm-bleeding')
 depends=('electron'
          'python-pylint'
