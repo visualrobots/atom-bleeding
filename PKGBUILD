@@ -13,6 +13,7 @@ pkgname=atom-bleeding
 _pkgname=atom
 _apmver=1.12.6
 _atomver=1.9.9
+#pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}.n${_NODE_VERSION}
 pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}.n${_NODE_VERSION}
 pkgrel=2
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
@@ -144,6 +145,7 @@ source=("about-arch::git+${_fus_url}/about.git"
         "language-toml::git+${_atom_url}/language-toml.git"
         "language-xml::git+${_atom_url}/language-xml.git"
         "language-yaml::git+${_atom_url}/language-yaml.git"
+        "linter::git+https://github.com/steelbrain/linter.git"
         "linter-clang::git+https://github.com/AtomLinter/linter-clang.git"
         "linter-coffeescript::git+https://github.com/hokaccha/linter-coffeescript.git"
         "linter-jsonlint::git+https://github.com/AtomLinter/linter-jsonlint.git"
@@ -302,7 +304,7 @@ sha256sums=('SKIP'
             'ce8d45831e3d5071b7b913e8d1a014ec3b1ac3586194039006dcf87c100cc189'
             'd6ce1a5e16a42aa50c89848f36eaf2e5ef07a93f36dc740eaeb6ac7a6b3e0432')
 
-_pkgver() {
+pkgver() {
   function describe {
     printf "$(git -C "$srcdir/$1" describe --tags `git -C "$srcdir/$1" rev-list --tags --max-count=1` | sed 's/v//g')"
   }
@@ -346,7 +348,7 @@ _pkgver() {
   _language_java_ver="$(describe language-java)"
   _language_javascript_ver="$(describe language-javascript)"
   _language_json_ver="$(describe language-json)"
-  _language_less="$(describe language-less)"
+  _language_less_ver="$(describe language-less)"
   _language_liquid_ver="$(describe language-liquid)"
   _language_make_ver="$(describe language-make)"
   _language_patch2_ver="$(describe language-patch2)"
