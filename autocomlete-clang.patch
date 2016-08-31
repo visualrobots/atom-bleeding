@@ -1,6 +1,0 @@
-48c48,50
-<   "devDependencies": {},
----
->   "devDependencies": {
-> 	"coffee-script": "1.8.0"
->   },
