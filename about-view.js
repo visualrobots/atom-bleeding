@@ -168,7 +168,7 @@
               _this.a({
                 href: 'https://github.com/fusion809/arch-atom/blob/master/atom-bleeding/PKGBUILD'
               }, 'PKGBUILD');
-              _this.span(' , in the ');
+              _this.span(', in the ');
               _this.a({
                 href: 'https://github.com/fusion809/arch-atom'
               }, 'fusion809/arch-atom');

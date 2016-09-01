@@ -13,7 +13,7 @@ pkgname=atom-bleeding
 _pkgname=atom
 _apmver=1.12.6
 _atomver=1.10.0
-pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}.n${_NODE_VERSION}
+pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}
 pkgrel=1
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
 arch=('i686' 'x86_64')
@@ -284,7 +284,7 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
-            '4c18bd6bc068cd2aade7270941e2b75ac2264f73c5d28ba4f812cd7d48b37679'
+            'ad7c7b2df6d2f004cd10cf8331d82d1d308702254266487ee5f6d09f11b36e24'
             'f1b9e3e844dad4768b9f352198882dbc073e879d3eec1848a7001b5888715803'
             '17e19ac310007e6b9b4bcd78c13b2a8322909cac15375aacd14c079253930341'
             'e92e23bbf839bec6611b2ac76c1f5bba35b476983b0faa9b310288e2956247a2'
