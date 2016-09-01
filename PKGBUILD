@@ -12,7 +12,7 @@ export _NODE_VERSION=$(node --version | sed 's/v//g')
 pkgname=atom-bleeding
 _pkgname=atom
 _apmver=1.12.6
-_atomver=1.9.9
+_atomver=1.10.0
 pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}.n${_NODE_VERSION}
 pkgrel=1
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
@@ -37,7 +37,7 @@ optdepends=('ctags: symbol indexing support')
 makedepends=('coffee-script' 'git')
 # git sources
 source=("about-arch::git+${_fus_url}/about.git"
-        "atom::git+${url}.git"
+        "atom::git+${url}.git#tag=v${_atomver}"
         "ask-stack::git+https://github.com/Chris911/Ask-Stack-Atom.git"
         "dark-bint-syntax::git+${_mur_url}/dark-bint-syntax.git"
         "fusion-ui::git+${_fus_url}/fusion-ui.git"
@@ -50,7 +50,7 @@ source=("about-arch::git+${_fus_url}/about.git"
         "language-unix-shell::git+${_fus_url}/language-shellscript.git"
         "language-vala-modern::git+${_fus_url}/language-vala-modern.git"
         "terminal-fusion::git+${_fus_url}/terminal-fusion.git"
-        "apm::git+https://github.com/atom/apm.git"
+        "apm::git+https://github.com/atom/apm.git#tag=v${_apmver}"
         "archive-view::git+${_atom_url}/archive-view.git"
         "autocomplete-atom-api::git+${_atom_url}/autocomplete-atom-api.git"
         "autocomplete-clang::git+https://github.com/yasuyuky/autocomplete-clang.git"
@@ -289,17 +289,17 @@ sha256sums=('SKIP'
             '17e19ac310007e6b9b4bcd78c13b2a8322909cac15375aacd14c079253930341'
             'e92e23bbf839bec6611b2ac76c1f5bba35b476983b0faa9b310288e2956247a2'
             '4b978622b98d18affcd02e389b8410f4a6d33865c4aa02567a72a5c2c3b7030d'
-            '11237bea5c7551984226d6db1c2dc5650b47df66bc8eec5238e80a9259cbf669'
+            '29d013956b2b69f183b3016ee985b244a36fa6aca390cfa323dd986ea040076c'
             'a8b1766ced19c1583915ff8b0ce8b7d96baef22e103fcdbffe9f9c8126ad4df4'
             '70ba93703dbdecbea106a92127e40d3c153e1fd9519cf1bfd12202bf49840c5e'
-            'fb96c10f76a6e088c2c50c6ee0a68e01ca5f60943fe3879574c0aaae624d33a9'
+            '1c5ef69e5defd8af95ee898a2a1ef2db8d090febe7a633fbfbcb8b6060cd6714'
             '9e990a69b2ce007eac3054fdb5ae9e42f60811a767d8aa37a10da614a5dd68a3'
             '109af01ceae45615994f2ac08292c44db339bf7ef89369b077e04fcfc35aa3dd'
-            '7f81e7245c7099b69380aef9f9b79fcaca8384a5fa00e6767bbfe00b1f81935f'
-            '0b380a4fb7399fb23dad23b7aacb3d4d603b436bac318bbbbc1641e2ff840f3b'
+            '10c2c2e29ce0df4bfd19071ac9301b3ead423a1675792b9c799497c562f5e8ba'
+            '4f0a37d8d11fa69038da8aede053de30f52dc3fe68300df45f6f97e0910b32e3'
             '0e607fef2a1a92d58fa5b7beca2a059bdbcc7ecd4198013baa1ffd05fff5446e'
             '0763015eb5ddb8346a5cef3479d80023d32382531d8a651c230c8f2144ba3628'
-            '4d73feaadc49d2daae4e3fffcd35d4d57608d03b622bc6fb0d9d16e71e43a6a2'
+            '44d8f9c00dd6160cafd75427125d9d65a695d506f6088eafc7081ac541f66aff'
             '1d5a4e6f2f928ebea64ee70c8a6ecf1935a1409ca7e50b02c70ae9f3315328b6'
             'ce8d45831e3d5071b7b913e8d1a014ec3b1ac3586194039006dcf87c100cc189'
             'd6ce1a5e16a42aa50c89848f36eaf2e5ef07a93f36dc740eaeb6ac7a6b3e0432')
@@ -343,6 +343,7 @@ prepare() {
   _linter_jsonlint_ver="$(describe linter-jsonlint)"
   _linter_pylint_ver="$(describe linter-pylint)"
   _linter_lua_ver="$(describe linter-lua)"
+  _linter_ver="$(describe linter)"
   _minimap_ver="$(describe minimap)"
   _pigments_ver="$(describe pigments)"
   _script_ver="$(describe script)"
@@ -356,7 +357,6 @@ prepare() {
   updpkgsums $srcdir/../PKGBUILD
 
   cd apm
-  git checkout v${_apmver}
   # Use custom launcher
   rm bin/apm{,.cmd} bin/npm{,.cmd}
   rm src/cli.coffee
@@ -371,7 +371,6 @@ prepare() {
 
   ## atom
   cd "${srcdir}/${_pkgname}"
-  git checkout v${_atomver}
 
   sed -e "s|<SRCDIR>|$srcdir/apm-build|g" "${srcdir}"/use-system-apm.patch > $srcdir/use-system-apm-fix.patch
 
@@ -389,8 +388,8 @@ prepare() {
          -e "/-theme/d" \
          -e "s/\"language-gfm\": \".*\",/\"language-gfm2\": \"${_language_gfm2_ver}\",\n    \"language-ini-desktop\": \"${_language_ini_desktop_ver}\",\n    \"language-liquid\": \"${_language_liquid_ver}\",\n    \"language-patch2\": \"${_language_patch2_ver}\",/g" \
          -e "/\"dependencies\": {/a \
-                     \"language-patch2\": \"${_language_patch2_url}\"," \
-         -e "s/\"language-shellscript\": \".*\",/\"language-lisp\": \"${_language_lisp_ver}\",\n    \"language-lua\": \"${_language_lua_ver}\",\n    \"language-matlab-octave\": \"${_language_matlab_octave_ver}\",\n    \"language-pascal\": \"${_language_pascal_ver}\",\n    \"language-rust\": \"${_language_rust_ver}\",\n    \"language-scala\": \"${_language_scala_ver}\",\n    \"language-unix-shell\": \"${_language_unix_shell_ver}\",\n    \"language-vala-modern\": \"${_language_vala_modern_ver}\",\n    \"language-archlinux\": \"${_language_archlinux_ver}\",\n    \"language-docker\": \"${_language_docker_ver}\",\n    \"terminal-fusion\": \"${_tf_ver}\",\n    \"tool-bar\": \"${_tool_bar_ver}\",\n    \"toolbar-fusion\": \"${_toolbar_fusion_ver}\",\n    \"linter-clang\": \"${_linter_clang_ver}\",\n    \"linter-coffeescript\": \"${_linter_coffeescript_ver}\",\n    \"linter-jsonlint\": \"${_linter_jsonlint_ver}\",\n    \"linter-pylint\": \"${_linter_pylint_ver}\",\n    \"linter-lua\": \"${_linter_lua_ver}\",/g" \
+                     \"language-patch2\": \"${_language_patch2_url}\",\n    \"atom-ui\": \"0.4.1\"," \
+         -e "s/\"language-shellscript\": \".*\",/\"language-lisp\": \"${_language_lisp_ver}\",\n    \"language-lua\": \"${_language_lua_ver}\",\n    \"language-matlab-octave\": \"${_language_matlab_octave_ver}\",\n    \"language-pascal\": \"${_language_pascal_ver}\",\n    \"language-rust\": \"${_language_rust_ver}\",\n    \"language-scala\": \"${_language_scala_ver}\",\n    \"language-unix-shell\": \"${_language_unix_shell_ver}\",\n    \"language-vala-modern\": \"${_language_vala_modern_ver}\",\n    \"language-archlinux\": \"${_language_archlinux_ver}\",\n    \"language-docker\": \"${_language_docker_ver}\",\n    \"terminal-fusion\": \"${_tf_ver}\",\n    \"tool-bar\": \"${_tool_bar_ver}\",\n    \"toolbar-fusion\": \"${_toolbar_fusion_ver}\",\n    \"linter-clang\": \"${_linter_clang_ver}\",\n    \"linter-coffeescript\": \"${_linter_coffeescript_ver}\",\n    \"linter-jsonlint\": \"${_linter_jsonlint_ver}\",\n    \"linter-pylint\": \"${_linter_pylint_ver}\",\n    \"linter-lua\": \"${_linter_lua_ver}\",\n    \"linter\": \"${_linter_ver}\",/g" \
          -e "s/\"about\": \".*\"/\"about-arch\": \"${_about_arch_ver}\"/g" \
          -e "s/\"link\": \".*\",/\"hyperclick\": \"${_hyperclick_ver}\",\n    \"hyperlink-hyperclick\": \"${_hyperlink_hyperclick_ver}\",\n    \"minimap\": \"${_minimap_ver}\",\n    \"pigments\": \"${_pigments_ver}\",\n    \"script\": \"${_script_ver}\",/g" \
          -e "/\"packageDependencies\": {/a \
