@@ -1,10 +1,8 @@
-diff --git a/build/tasks/prebuild-less-task.coffee b/build/tasks/prebuild-less-task.coffee
-index d5b1fae..4c363aa 100644
 --- a/build/tasks/prebuild-less-task.coffee
 +++ b/build/tasks/prebuild-less-task.coffee
-@@ -36,20 +36,11 @@ module.exports = (grunt) ->
-     compileBootstrap()
+@@ -16,20 +16,11 @@
 
+   grunt.registerMultiTask 'prebuild-less', 'Prebuild cached of compiled Less files', ->
      uiThemes = [
 -      'atom-dark-ui'
 -      'atom-light-ui'
