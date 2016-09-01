@@ -1,13 +1,14 @@
 # Maintainer: Nicola Squartini <tensor5@gmail.com>
 #             Brenton Horne <brentonhorne77 at gmail dot com>
-_atom_url="https://github.com/atom"
-_fus_url="https://github.com/fusion809"
-_lee_url="https://github.com/lee-dohm"
-_mur_url="https://github.com/Murriouz"
+_gh_url="https://github.com/"
+_atom_url="${_gh_url}/atom"
+_fus_url="${_gh_url}/fusion809"
+_lee_url="${_gh_url}/lee-dohm"
+_mur_url="${_gh_url}/Murriouz"
+_lint_url="${_gh_url}/AtomLinter"
 _language_patch2_url="${_fus_url}/language-patch2"
 _ELECTRON_VERSION=$(</usr/lib/electron/version)
 export _ELECTRON_VERSION=${_ELECTRON_VERSION#v}
-#export _NODE_VERSION=$(node --version | sed 's/v//g')
 
 pkgname=atom-bleeding
 _pkgname=atom
@@ -52,16 +53,6 @@ source=("about-arch::git+${_fus_url}/about.git"
         "terminal-fusion::git+${_fus_url}/terminal-fusion.git"
         "apm::git+https://github.com/atom/apm.git#tag=v${_apmver}"
         "archive-view::git+${_atom_url}/archive-view.git"
-        "autocomplete-atom-api::git+${_atom_url}/autocomplete-atom-api.git"
-        "autocomplete-clang::git+https://github.com/yasuyuky/autocomplete-clang.git"
-        "autocomplete-css::git+${_atom_url}/autocomplete-css.git"
-        "autocomplete-java::git+https://github.com/keskiju/autocomplete-java.git"
-        "autocomplete-html::git+${_atom_url}/autocomplete-html.git"
-        "autocomplete-modules::git+https://github.com/nkt/atom-autocomplete-modules.git"
-        "autocomplete-plus::git+${_atom_url}/autocomplete-plus.git"
-        "autocomplete-python::git+https://github.com/sadovnychyi/autocomplete-python.git"
-        "autocomplete-sass::git+https://github.com/saschagehlich/autocomplete-sass.git"
-        "autocomplete-snippets::git+${_atom_url}/autocomplete-snippets.git"
         "autoflow::git+${_atom_url}/autoflow.git"
         "autosave::git+${_atom_url}/autosave.git"
         "background-tips::git+${_atom_url}/background-tips.git"
@@ -145,11 +136,25 @@ source=("about-arch::git+${_fus_url}/about.git"
         "language-xml::git+${_atom_url}/language-xml.git"
         "language-yaml::git+${_atom_url}/language-yaml.git"
         "linter::git+https://github.com/steelbrain/linter.git"
-        "linter-clang::git+https://github.com/AtomLinter/linter-clang.git"
+        "linter-clang::git+${_lint_url}/linter-clang.git"
         "linter-coffeescript::git+https://github.com/hokaccha/linter-coffeescript.git"
-        "linter-jsonlint::git+https://github.com/AtomLinter/linter-jsonlint.git"
-        "linter-pylint::git+https://github.com/AtomLinter/linter-pylint.git"
-        "linter-lua::git+https://github.com/AtomLinter/linter-lua.git")
+        "linter-javac::git+${_lint_url}/linter-javac.git"
+        "linter-jsonlint::git+${_lint_url}/linter-jsonlint.git"
+        "linter-lua::git+${_lint_url}/linter-lua.git"
+        "linter-php::git+${_lint_url}/linter-php.git"
+        "linter-pylint::git+${_lint_url}/linter-pylint.git"
+        "linter-ruby::git+${_lint_url}/linter-ruby.git"
+        "linter-rust::git+${_lint_url}/linter-rust.git"
+        "autocomplete-atom-api::git+${_atom_url}/autocomplete-atom-api.git"
+        "autocomplete-clang::git+https://github.com/yasuyuky/autocomplete-clang.git"
+        "autocomplete-css::git+${_atom_url}/autocomplete-css.git"
+        "autocomplete-java::git+https://github.com/keskiju/autocomplete-java.git"
+        "autocomplete-html::git+${_atom_url}/autocomplete-html.git"
+        "autocomplete-modules::git+https://github.com/nkt/atom-autocomplete-modules.git"
+        "autocomplete-plus::git+${_atom_url}/autocomplete-plus.git"
+        "autocomplete-python::git+https://github.com/sadovnychyi/autocomplete-python.git"
+        "autocomplete-sass::git+https://github.com/saschagehlich/autocomplete-sass.git"
+        "autocomplete-snippets::git+${_atom_url}/autocomplete-snippets.git")
 # patches, json, js and desktop files
 source+=('about-view.js'
 'atom-bleeding.desktop'
