@@ -1,6 +1,6 @@
 # Maintainer: Nicola Squartini <tensor5@gmail.com>
 #             Brenton Horne <brentonhorne77 at gmail dot com>
-_gh_url="https://github.com/"
+_gh_url="https://github.com"
 _atom_url="${_gh_url}/atom"
 _fus_url="${_gh_url}/fusion809"
 _lee_url="${_gh_url}/lee-dohm"
@@ -33,7 +33,9 @@ depends=('electron'
          'nodejs'
          'python2'
          'coffee-script'
-         'java-environment')
+         'java-environment'
+         'ruby'
+         'rust')
 optdepends=('ctags: symbol indexing support')
 makedepends=('coffee-script' 'git')
 # git sources
@@ -289,6 +291,10 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
             'ad7c7b2df6d2f004cd10cf8331d82d1d308702254266487ee5f6d09f11b36e24'
             'f1b9e3e844dad4768b9f352198882dbc073e879d3eec1848a7001b5888715803'
             '17e19ac310007e6b9b4bcd78c13b2a8322909cac15375aacd14c079253930341'
@@ -348,6 +354,9 @@ prepare() {
   _linter_jsonlint_ver="$(describe linter-jsonlint)"
   _linter_pylint_ver="$(describe linter-pylint)"
   _linter_lua_ver="$(describe linter-lua)"
+  _linter_javac_ver="$(describe linter-javac)"
+  _linter_ruby_ver="$(describe linter-ruby)"
+  _linter_rust_ver="$(describe linter-rust)"
   _linter_ver="$(describe linter)"
   _minimap_ver="$(describe minimap)"
   _pigments_ver="$(describe pigments)"
@@ -394,7 +403,7 @@ prepare() {
          -e "s/\"language-gfm\": \".*\",/\"language-gfm2\": \"${_language_gfm2_ver}\",\n    \"language-ini-desktop\": \"${_language_ini_desktop_ver}\",\n    \"language-liquid\": \"${_language_liquid_ver}\",\n    \"language-patch2\": \"${_language_patch2_ver}\",/g" \
          -e "/\"dependencies\": {/a \
                      \"language-patch2\": \"${_language_patch2_url}\",\n    \"atom-ui\": \"0.4.1\"," \
-         -e "s/\"language-shellscript\": \".*\",/\"language-lisp\": \"${_language_lisp_ver}\",\n    \"language-lua\": \"${_language_lua_ver}\",\n    \"language-matlab-octave\": \"${_language_matlab_octave_ver}\",\n    \"language-pascal\": \"${_language_pascal_ver}\",\n    \"language-rust\": \"${_language_rust_ver}\",\n    \"language-scala\": \"${_language_scala_ver}\",\n    \"language-unix-shell\": \"${_language_unix_shell_ver}\",\n    \"language-vala-modern\": \"${_language_vala_modern_ver}\",\n    \"language-archlinux\": \"${_language_archlinux_ver}\",\n    \"language-docker\": \"${_language_docker_ver}\",\n    \"terminal-fusion\": \"${_tf_ver}\",\n    \"tool-bar\": \"${_tool_bar_ver}\",\n    \"toolbar-fusion\": \"${_toolbar_fusion_ver}\",\n    \"linter-clang\": \"${_linter_clang_ver}\",\n    \"linter-coffeescript\": \"${_linter_coffeescript_ver}\",\n    \"linter-jsonlint\": \"${_linter_jsonlint_ver}\",\n    \"linter-pylint\": \"${_linter_pylint_ver}\",\n    \"linter-lua\": \"${_linter_lua_ver}\",\n    \"linter\": \"${_linter_ver}\",/g" \
+         -e "s/\"language-shellscript\": \".*\",/\"language-lisp\": \"${_language_lisp_ver}\",\n    \"language-lua\": \"${_language_lua_ver}\",\n    \"language-matlab-octave\": \"${_language_matlab_octave_ver}\",\n    \"language-pascal\": \"${_language_pascal_ver}\",\n    \"language-rust\": \"${_language_rust_ver}\",\n    \"language-scala\": \"${_language_scala_ver}\",\n    \"language-unix-shell\": \"${_language_unix_shell_ver}\",\n    \"language-vala-modern\": \"${_language_vala_modern_ver}\",\n    \"language-archlinux\": \"${_language_archlinux_ver}\",\n    \"language-docker\": \"${_language_docker_ver}\",\n    \"terminal-fusion\": \"${_tf_ver}\",\n    \"tool-bar\": \"${_tool_bar_ver}\",\n    \"toolbar-fusion\": \"${_toolbar_fusion_ver}\",\n    \"linter-clang\": \"${_linter_clang_ver}\",\n    \"linter-coffeescript\": \"${_linter_coffeescript_ver}\",\n    \"linter-jsonlint\": \"${_linter_jsonlint_ver}\",\n    \"linter-pylint\": \"${_linter_pylint_ver}\",\n    \"linter-lua\": \"${_linter_lua_ver}\",\n    \"linter-javac\": \"${_linter_javac_ver}\",\n    \"linter-ruby\": \"${_linter_ruby_ver}\",\n    \"linter-rust\": \"${_linter_rust_ver}\",\n    \"linter\": \"${_linter_ver}\",/g" \
          -e "s/\"about\": \".*\"/\"about-arch\": \"${_about_arch_ver}\"/g" \
          -e "s/\"link\": \".*\",/\"hyperclick\": \"${_hyperclick_ver}\",\n    \"hyperlink-hyperclick\": \"${_hyperlink_hyperclick_ver}\",\n    \"minimap\": \"${_minimap_ver}\",\n    \"pigments\": \"${_pigments_ver}\",\n    \"script\": \"${_script_ver}\",/g" \
          -e "/\"packageDependencies\": {/a \
@@ -522,6 +531,9 @@ build() {
 
   # Fix for Node 6
   cd node_modules/autocomplete-clang/lib
+  sed -i -e 's/.coffee//g' *.coffee
+  cd ../../..
+  cd node_modules/linter/lib
   sed -i -e 's/.coffee//g' *.coffee
   cd ../../..
   # Use system ctags
