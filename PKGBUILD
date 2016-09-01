@@ -7,7 +7,7 @@ _mur_url="https://github.com/Murriouz"
 _language_patch2_url="${_fus_url}/language-patch2"
 _ELECTRON_VERSION=$(</usr/lib/electron/version)
 export _ELECTRON_VERSION=${_ELECTRON_VERSION#v}
-export _NODE_VERSION=$(node --version | sed 's/v//g')
+#export _NODE_VERSION=$(node --version | sed 's/v//g')
 
 pkgname=atom-bleeding
 _pkgname=atom
