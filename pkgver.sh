@@ -6,7 +6,7 @@ function pkgver {
   _about_arch_ver=$(describe about-arch)
   _apmver=$(describe apm)
   _archive_view_ver="$(describe archive-view)"
-  _atomver=1.9.9
+  _atomver=1.10.0
   _autocomplete_css_ver="$(describe autocomplete-css)"
   _autocomplete_modules_ver="$(describe autocomplete-modules)"
   _autocomplete_plus_ver="$(describe autocomplete-plus)"
