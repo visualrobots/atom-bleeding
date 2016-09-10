@@ -15,7 +15,7 @@ _pkgname=atom
 _apmver=1.12.7
 _atomver=1.10.2
 pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}
-pkgrel=2
+pkgrel=3
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
 arch=('i686' 'x86_64')
 url="${_atom_url}/atom"
@@ -543,6 +543,13 @@ build() {
   cd ../..
   cd node_modules/tree-view
   patch -Np1 -i ${srcdir}/tree-view.patch
+  cd ../..
+  cd node_modules/git-plus/lib
+  sed -i -e 's/.coffee//g' *.coffee
+  cd ..
+  sed -i -e "/\"version\": \".*\",/a \
+              \"readmeFilename\": \"README.md\",\n    \"readme\": \"Run git commands without a terminal.\"," \
+         -e "s/\"readmeFilename\"/    \"readmeFilename\"/g" package.json
   cd ../..
 
   # Fix for Electron 1.3.0
