@@ -40,7 +40,7 @@ optdepends=('ctags: symbol indexing support')
 makedepends=('coffee-script' 'git')
 # git sources
 source=("about-arch::git+${_fus_url}/about.git"
-        "atom::git+${url}.git#tag=v${_atomver}"
+        "${url}/archive/v${_atomver}.tar.gz"
         "ask-stack::git+https://github.com/Chris911/Ask-Stack-Atom.git"
         "dark-bint-syntax::git+${_mur_url}/dark-bint-syntax.git"
         "fusion-ui::git+${_fus_url}/fusion-ui.git"
@@ -178,7 +178,7 @@ source+=('about-view.js'
 'use-system-node-gyp.patch'
 'symbols-view-use-system-ctags.patch')
 sha256sums=('SKIP'
-            'SKIP'
+            'de47aa7d80b3e31f1c42823fec6e98a9473021c022970a8548cb36c498a7e6f8'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -384,7 +384,7 @@ prepare() {
   patch -Np1 -i ../use-system-node-gyp.patch
 
   ## atom
-  cd "${srcdir}/${_pkgname}"
+  cd "${srcdir}/${_pkgname}-${_atomver}"
 
   sed -e "s|<SRCDIR>|$srcdir/apm-build|g" "${srcdir}"/use-system-apm.patch > $srcdir/use-system-apm-fix.patch
 
@@ -514,7 +514,7 @@ build() {
   npm dedupe
 
   ## atom
-  cd "${srcdir}/${_pkgname}"
+  cd "${srcdir}/${_pkgname}-${_atomver}"
 
   export ATOM_RESOURCE_PATH="$srcdir/${_pkgname}"
   # If unset, ~/.atom/.node-gyp/.atom/.npm is used
@@ -602,8 +602,8 @@ package() {
   install -dm755 ${pkgdir}/usr/share/doc/${pkgname}/apm/
   install -dm755 ${pkgdir}/usr/share/doc/${pkgname}/atom/
   install -Dm644 "${srcdir}"/apm/README.md ${pkgdir}/usr/share/doc/${pkgname}/apm/README.md
-  install -Dm644 "${srcdir}"/atom/README.md ${pkgdir}/usr/share/doc/${pkgname}/atom/README.md
-  install -Dm644 "${srcdir}/atom/package.json" "${pkgdir}/usr/share/doc/${pkgname}/atom/package.json"
+  install -Dm644 "${srcdir}"/atom-${_atomver}/README.md ${pkgdir}/usr/share/doc/${pkgname}/atom/README.md
+  install -Dm644 "${srcdir}/atom-${_atomver}/package.json" "${pkgdir}/usr/share/doc/${pkgname}/atom/package.json"
 
   # Install license file
   install -d -m755 "${pkgdir}/usr/share/licenses/${pkgname}/{apm,atom}"
@@ -645,7 +645,7 @@ package() {
   patch -Np1 -i "$srcdir/upgrade.patch"
 
   ## atom
-  cd "${srcdir}/${_pkgname}"
+  cd "${srcdir}/${_pkgname}-${_atomver}"
 
   _LIB="/usr/lib/${pkgname}"
   _LIBDIR="${pkgdir}/usr/lib"
