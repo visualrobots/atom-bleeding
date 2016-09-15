@@ -15,7 +15,7 @@ _pkgname=atom
 _apmver=1.12.7
 _atomver=1.10.2
 pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}
-pkgrel=2
+pkgrel=1
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
 arch=('i686' 'x86_64')
 url="${_atom_url}/atom"
@@ -32,9 +32,6 @@ depends=('electron'
          'libgnome-keyring'
          'nodejs'
          'python2'
-         'hlint'
-         'haskell-ghc-mod'
-         'ghc-mod'
          'coffee-script'
          'java-environment'
          'ruby'
@@ -75,7 +72,6 @@ source=("about-arch::git+${_fus_url}/about.git"
         "find-and-replace::git+${_atom_url}/find-and-replace.git"
         "go-to-line::git+${_atom_url}/go-to-line.git"
         "grammar-selector::git+${_atom_url}/grammar-selector.git"
-        "haskell-ghc-mod::git+https://github.com/atom-haskell/haskell-ghc-mod.git"
         "hyperclick::git+https://github.com/facebooknuclideapm/hyperclick.git"
         "hyperlink-hyperclick::git+https://github.com/UziTech/hyperlink-hyperclick.git"
         "image-view::git+${_atom_url}/image-view.git"
@@ -112,7 +108,6 @@ source=("about-arch::git+${_fus_url}/about.git"
         "language-docker::git+https://github.com/jagregory/language-docker.git"
         "language-git::git+${_atom_url}/language-git.git"
         "language-go::git+${_atom_url}/language-go.git"
-        "language-haskell::git+https://github.com/atom-haskell/language-haskell.git"
         "language-html::git+${_atom_url}/language-html.git"
         "language-hyperlink::git+${_atom_url}/language-hyperlink.git"
         "language-java::git+${_atom_url}/language-java.git"
@@ -145,7 +140,6 @@ source=("about-arch::git+${_fus_url}/about.git"
         "linter::git+https://github.com/steelbrain/linter.git"
         "linter-clang::git+${_lint_url}/linter-clang.git"
         "linter-coffeescript::git+https://github.com/hokaccha/linter-coffeescript.git"
-        "linter-hlint::git+${_lint_url}/linter-hlint.git"
         "linter-javac::git+${_lint_url}/linter-javac.git"
         "linter-jsonlint::git+${_lint_url}/linter-jsonlint.git"
         "linter-lua::git+${_lint_url}/linter-lua.git"
@@ -156,13 +150,11 @@ source=("about-arch::git+${_fus_url}/about.git"
         "autocomplete-atom-api::git+${_atom_url}/autocomplete-atom-api.git"
         "autocomplete-clang::git+https://github.com/yasuyuky/autocomplete-clang.git"
         "autocomplete-css::git+${_atom_url}/autocomplete-css.git"
-        "autocomplete-haskell::git+https://github.com/atom-haskell/autocomplete-haskell.git"
         "autocomplete-java::git+https://github.com/keskiju/autocomplete-java.git"
         "autocomplete-html::git+${_atom_url}/autocomplete-html.git"
         "autocomplete-modules::git+https://github.com/nkt/atom-autocomplete-modules.git"
         "autocomplete-plus::git+${_atom_url}/autocomplete-plus.git"
         "autocomplete-python::git+https://github.com/sadovnychyi/autocomplete-python.git"
-        "autocomplete-sass::git+https://github.com/saschagehlich/autocomplete-sass.git"
         "autocomplete-snippets::git+${_atom_url}/autocomplete-snippets.git")
 # patches, json, js and desktop files
 source+=('about-view.js'
@@ -186,11 +178,6 @@ source+=('about-view.js'
 'symbols-view-use-system-ctags.patch')
 sha256sums=('SKIP'
             'de47aa7d80b3e31f1c42823fec6e98a9473021c022970a8548cb36c498a7e6f8'
-            'SKIP'
-            'SKIP'
-            'SKIP'
-            'SKIP'
-            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -334,7 +321,6 @@ prepare() {
   _apmver=$(describe apm)
   _ask_stack_ver="$(describe ask-stack)"
   _autocomplete_clang_ver="$(describe autocomplete-clang)"
-  _autocomplete_haskell_ver="$(describe autocomplete-haskell)"
   _autocomplete_java_ver="$(describe autocomplete-java)"
   _autocomplete_python_ver="$(describe autocomplete-python)"
   _autocomplete_modules_ver="$(describe autocomplete-modules)"
@@ -344,13 +330,11 @@ prepare() {
   _git_plus_ver="$(describe git-plus)"
   _git_time_machine_ver="$(describe git-time-machine)"
   _gpp_compiler_ver="$(describe gpp-compiler)"
-  _haskell_ghc_mod_ver="$(describe haskell-ghc-mod)"
   _hyperclick_ver="$(describe hyperclick)"
   _hyperlink_hyperclick_ver="$(describe hyperlink-hyperclick)"
   _language_archlinux_ver="$(describe language-archlinux)"
   _language_docker_ver="$(describe language-docker)"
   _language_gfm2_ver="$(describe language-gfm2)"
-  _language_haskell_ver="$(describe language-haskell)"
   _language_ini_desktop_ver="$(describe language-ini-desktop)"
   _language_liquid_ver="$(describe language-liquid)"
   _language_lisp_ver="$(describe language-lisp)"
@@ -364,7 +348,6 @@ prepare() {
   _language_vala_modern_ver="$(describe language-vala-modern)"
   _linter_clang_ver="$(describe linter-clang)"
   _linter_coffeescript_ver="$(describe linter-coffeescript)"
-  _linter_hlint_ver="$(describe linter-hlint)"
   _linter_jsonlint_ver="$(describe linter-jsonlint)"
   _linter_pylint_ver="$(describe linter-pylint)"
   _linter_lua_ver="$(describe linter-lua)"
@@ -417,11 +400,11 @@ prepare() {
          -e "s/\"language-gfm\": \".*\",/\"language-gfm2\": \"${_language_gfm2_ver}\",\n    \"language-ini-desktop\": \"${_language_ini_desktop_ver}\",\n    \"language-liquid\": \"${_language_liquid_ver}\",\n    \"language-patch2\": \"${_language_patch2_ver}\",/g" \
          -e "/\"dependencies\": {/a \
                      \"language-patch2\": \"${_language_patch2_url}\",\n    \"atom-ui\": \"0.4.1\"," \
-         -e "s/\"language-shellscript\": \".*\",/\"language-haskell\": \"${_language_haskell_ver}\",\n    \"language-lisp\": \"${_language_lisp_ver}\",\n    \"language-lua\": \"${_language_lua_ver}\",\n    \"language-matlab-octave\": \"${_language_matlab_octave_ver}\",\n    \"language-pascal\": \"${_language_pascal_ver}\",\n    \"language-rust\": \"${_language_rust_ver}\",\n    \"language-scala\": \"${_language_scala_ver}\",\n    \"language-unix-shell\": \"${_language_unix_shell_ver}\",\n    \"language-vala-modern\": \"${_language_vala_modern_ver}\",\n    \"language-archlinux\": \"${_language_archlinux_ver}\",\n    \"language-docker\": \"${_language_docker_ver}\",\n    \"terminal-fusion\": \"${_tf_ver}\",\n    \"tool-bar\": \"${_tool_bar_ver}\",\n    \"toolbar-fusion\": \"${_toolbar_fusion_ver}\",\n    \"linter-clang\": \"${_linter_clang_ver}\",\n    \"linter-coffeescript\": \"${_linter_coffeescript_ver}\",\n    \"linter-hlint\": \"${_linter_hlint_ver}\",\n    \"linter-jsonlint\": \"${_linter_jsonlint_ver}\",\n    \"linter-pylint\": \"${_linter_pylint_ver}\",\n    \"linter-lua\": \"${_linter_lua_ver}\",\n    \"linter-javac\": \"${_linter_javac_ver}\",\n    \"linter-ruby\": \"${_linter_ruby_ver}\",\n    \"linter-rust\": \"${_linter_rust_ver}\",\n    \"linter\": \"${_linter_ver}\",/g" \
+         -e "s/\"language-shellscript\": \".*\",/\"language-lisp\": \"${_language_lisp_ver}\",\n    \"language-lua\": \"${_language_lua_ver}\",\n    \"language-matlab-octave\": \"${_language_matlab_octave_ver}\",\n    \"language-pascal\": \"${_language_pascal_ver}\",\n    \"language-rust\": \"${_language_rust_ver}\",\n    \"language-scala\": \"${_language_scala_ver}\",\n    \"language-unix-shell\": \"${_language_unix_shell_ver}\",\n    \"language-vala-modern\": \"${_language_vala_modern_ver}\",\n    \"language-archlinux\": \"${_language_archlinux_ver}\",\n    \"language-docker\": \"${_language_docker_ver}\",\n    \"terminal-fusion\": \"${_tf_ver}\",\n    \"tool-bar\": \"${_tool_bar_ver}\",\n    \"toolbar-fusion\": \"${_toolbar_fusion_ver}\",\n    \"linter-clang\": \"${_linter_clang_ver}\",\n    \"linter-coffeescript\": \"${_linter_coffeescript_ver}\",\n    \"linter-jsonlint\": \"${_linter_jsonlint_ver}\",\n    \"linter-pylint\": \"${_linter_pylint_ver}\",\n    \"linter-lua\": \"${_linter_lua_ver}\",\n    \"linter-javac\": \"${_linter_javac_ver}\",\n    \"linter-ruby\": \"${_linter_ruby_ver}\",\n    \"linter-rust\": \"${_linter_rust_ver}\",\n    \"linter\": \"${_linter_ver}\",/g" \
          -e "s/\"about\": \".*\"/\"about-arch\": \"${_about_arch_ver}\"/g" \
          -e "s/\"link\": \".*\",/\"hyperclick\": \"${_hyperclick_ver}\",\n    \"hyperlink-hyperclick\": \"${_hyperlink_hyperclick_ver}\",\n    \"minimap\": \"${_minimap_ver}\",\n    \"pigments\": \"${_pigments_ver}\",\n    \"script\": \"${_script_ver}\",/g" \
          -e "/\"packageDependencies\": {/a \
-              \"ask-stack\": \"${_ask_stack_ver}\",\n    \"autocomplete-clang\": \"${_autocomplete_clang_ver}\",\n    \"autocomplete-java\": \"${_autocomplete_java_ver}\",\n    \"autocomplete-modules\": \"${_autocomplete_modules_ver}\",\n    \"autocomplete-python\": \"${_autocomplete_python_ver}\",\n    \"autocomplete-haskell\": \"${_autocomplete_haskell_ver}\",\n    \"haskell-ghc-mod\": \"${_haskell_ghc_mod_ver}\",\n    \"dark-bint-syntax\": \"${_dark_bint_syntax_ver}\",\n    \"file-icons\": \"${_file_icons_ver}\",\n    \"fusion-ui\": \"${_fusion_ui_ver}\",\n    \"gpp-compiler\": \"${_gpp_compiler_ver}\",\n    \"git-plus\": \"${_git_plus_ver}\",\n    \"git-time-machine\": \"${_git_time_machine_ver}\"," package.json
+              \"ask-stack\": \"${_ask_stack_ver}\",\n    \"autocomplete-clang\": \"${_autocomplete_clang_ver}\",\n    \"autocomplete-java\": \"${_autocomplete_java_ver}\",\n    \"autocomplete-modules\": \"${_autocomplete_modules_ver}\",\n    \"autocomplete-python\": \"${_autocomplete_python_ver}\",\n    \"dark-bint-syntax\": \"${_dark_bint_syntax_ver}\",\n    \"file-icons\": \"${_file_icons_ver}\",\n    \"fusion-ui\": \"${_fusion_ui_ver}\",\n    \"gpp-compiler\": \"${_gpp_compiler_ver}\",\n    \"git-plus\": \"${_git_plus_ver}\",\n    \"git-time-machine\": \"${_git_time_machine_ver}\"," package.json
 
   _L=("archive-view"
   "autocomplete-atom-api"
