@@ -15,7 +15,7 @@ _pkgname=atom
 _apmver=1.12.7
 _atomver=1.10.2
 pkgver=${_atomver}.apm${_apmver}.e${_ELECTRON_VERSION}
-pkgrel=2
+pkgrel=3
 pkgdesc='A hackable text editor for the 21st Century built using web technologies on the Electron framework. Built with the latest versions of all bundled packages.'
 arch=('i686' 'x86_64')
 url="${_atom_url}/atom"
@@ -165,6 +165,7 @@ source+=('about-view.js'
 'fix-license-path.patch'
 'fix-marker-index.patch'
 'fix-oniguruma.patch'
+'fix-ime-events-handler.patch'
 'run-as-node.patch'
 'theme.patch'
 'tree-view.patch'
@@ -294,13 +295,14 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'ad7c7b2df6d2f004cd10cf8331d82d1d308702254266487ee5f6d09f11b36e24'
-            'f1b9e3e844dad4768b9f352198882dbc073e879d3eec1848a7001b5888715803'
+            '1356775fd8fba63c23735e3041ac01d372d8e79670113ebcc90313fb55e2530d'
             '17e19ac310007e6b9b4bcd78c13b2a8322909cac15375aacd14c079253930341'
             'e92e23bbf839bec6611b2ac76c1f5bba35b476983b0faa9b310288e2956247a2'
             '4b978622b98d18affcd02e389b8410f4a6d33865c4aa02567a72a5c2c3b7030d'
             '29d013956b2b69f183b3016ee985b244a36fa6aca390cfa323dd986ea040076c'
             'a8b1766ced19c1583915ff8b0ce8b7d96baef22e103fcdbffe9f9c8126ad4df4'
             '70ba93703dbdecbea106a92127e40d3c153e1fd9519cf1bfd12202bf49840c5e'
+            '4fc53abcddebd716b6b3934119dc9e954e60359f094907662319b7e491dc1b96'
             '1c5ef69e5defd8af95ee898a2a1ef2db8d090febe7a633fbfbcb8b6060cd6714'
             '2ffb41099437a76a8d221a78f328af23cdbf2494b7eee401d2fd0b9e5d96816e'
             '109af01ceae45615994f2ac08292c44db339bf7ef89369b077e04fcfc35aa3dd'
@@ -492,6 +494,9 @@ prepare() {
   # Fix for Electron 1.3.0
   patch -Np1 -i "${srcdir}"/fix-pane-resize-handle.patch
 
+  # Fix for Electron 1.4.0
+  patch -Np1 -i "${srcdir}"/fix-ime-events-handler.patch
+
   # Theme patch
   patch -Np1 -i "${srcdir}"/theme.patch
 }
@@ -652,7 +657,7 @@ package() {
   cp -r out/Atom/resources/app ${_LIBDIR}
   mv ${_LIBDIR}/app ${_ALIBDIR}
 
-  install -Dm755 "resources/app-icons/stable/png/1024.png" "${pkgdir}/usr/share/icons/atom.png"
+  install -Dm644 "resources/app-icons/stable/png/1024.png" "${pkgdir}/usr/share/pixmaps/atom-bleeding.png"
 
   install -dm755 "${pkgdir}/usr/share/applications"
   install -Dm755 "$srcdir/${pkgname}.desktop" \
