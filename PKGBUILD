@@ -359,16 +359,18 @@ pkgver() {
   _linter_ver="$(describe linter)"
   _markdown_preview_ver="$(describe markdown-preview)"
   _minimap_ver="$(describe minimap)"
+  _open_on_github_ver="$(describe open-on-github)"
   _pigments_ver="$(describe pigments)"
   _script_ver="$(describe script)"
   _spell_check_ver="$(describe spell-check)"
   _settings_view_ver="$(describe settings-view)"
+  _tabs_ver="$(describe tabs)"
   _tool_bar_ver="$(describe tool-bar)"
   _toolbar_fusion_ver="$(describe toolbar-fusion)"
   _tf_ver="$(describe terminal-fusion)"
   _tree_view_ver="$(describe tree-view)"
 
-  printf "${_atomver}.ac${_autocomplete_clang_ver}.apl${_autocomplete_plus_ver}.apy${_autocomplete_python_ver}.apm${_apmver}.d${_dark_bint_syntax_ver}.e${_ELECTRON_VERSION}.fi${_file_icons_ver}.fu${_fusion_ui_ver}.gc${_gpp_compiler_ver}.gp${_git_plus_ver}.gt${_git_time_machine_ver}.h${_hyperclick_ver}.hh${_hyperlink_hyperclick_ver}.l${_linter_ver}.la${_language_archlinux_ver}.lc${_linter_clang_ver}.lu${_language_unix_shell_ver}.m${_minimap_ver}.mp${_markdown_preview_ver}.p${_pigments_ver}.s${_script_ver}.sc${_spell_check_ver}.sv${_settings_view_ver}.tb${_tool_bar_ver}.tbf${_toolbar_fusion_ver}.tf${_tf_ver}.tv${_tree_view_ver}"
+  printf "${_atomver}.ac${_autocomplete_clang_ver}.apl${_autocomplete_plus_ver}.apy${_autocomplete_python_ver}.apm${_apmver}.d${_dark_bint_syntax_ver}.e${_ELECTRON_VERSION}.fi${_file_icons_ver}.fu${_fusion_ui_ver}.gc${_gpp_compiler_ver}.gp${_git_plus_ver}.gt${_git_time_machine_ver}.h${_hyperclick_ver}.hh${_hyperlink_hyperclick_ver}.l${_linter_ver}.la${_language_archlinux_ver}.lc${_linter_clang_ver}.lu${_language_unix_shell_ver}.m${_minimap_ver}.mp${_markdown_preview_ver}.o${_open_on_github_ver}.p${_pigments_ver}.s${_script_ver}.sc${_spell_check_ver}.sv${_settings_view_ver}.t${_tabs_ver}.tb${_tool_bar_ver}.tbf${_toolbar_fusion_ver}.tf${_tf_ver}.tv${_tree_view_ver}"
 }
 
 prepare() {
