@@ -178,7 +178,7 @@ source+=('about-view.js'
 'use-system-node-gyp.patch'
 'symbols-view-use-system-ctags.patch')
 sha256sums=('SKIP'
-            'de47aa7d80b3e31f1c42823fec6e98a9473021c022970a8548cb36c498a7e6f8'
+            'ba7f4d4ad39dae21cc58b02bd2f6e51b315994c24484802a51ecce22120d80ac'
             'SKIP'
             'SKIP'
             'SKIP'
